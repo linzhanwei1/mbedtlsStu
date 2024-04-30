@@ -34,6 +34,12 @@ cmake --build mbedtlsBuild/ --target apidoc
 - 安装mbedtls库文件到指定目录(我安装到了本仓库的"mbedtls/lib/")
 ```sh
 cmake --install mbedtlsBuild --prefix=../mbedtlsStu/mbedtlsLib
+
+```
+- 添加环境变量(不然找不到mbedtls相关动态库)
+```sh
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/mbedtlsStu/mbedtlsLib/lib" >> ~/.bashrc
+source ~/.bashrc
 ```
 ## 测试mbedtlsLib库
 - 详情参见 [chapter00章节代码](./chapter00/)
