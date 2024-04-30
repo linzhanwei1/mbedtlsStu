@@ -30,7 +30,7 @@ cmake --build mbedtlsBuild/
 - 使用CMake构建APIdoc(注意生成后在mbedtls源码目录"xxx/mbedtls/apidoc/")
 ```sh
 cmake --build mbedtlsBuild/ --target apidoc
-```sh
+```
 - 安装mbedtls库文件到指定目录(我安装到了本仓库的"mbedtls/lib/")
 ```sh
 cmake --install mbedtlsBuild --prefix=../mbedtlsStu/mbedtlsLib
