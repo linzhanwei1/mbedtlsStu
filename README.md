@@ -1,6 +1,7 @@
 # mbedtlsStu
 ## 概述
-- mbedtls是一个优秀的开源加密组件，广泛的应用在嵌入式领域。通过本仓库，学习加密套件的使用方法；
+- mbedtls是一个优秀的开源加密组件，广泛的应用在嵌入式领域。
+- 通过本仓库，学习加密套件的使用方法，提供基础的参考资料；
 - 记录关键的构建和使用技巧，提供开发指导；
 - 个人能力有限，难免有疏漏错误之处，还望读者批评指正。
 ## 环境部署
@@ -10,33 +11,33 @@
     + cmake version 3.29.2
     + ninja 1.10.0
 - mbedtls源码下载
-```
+```sh
 git clone https://github.com/Mbed-TLS/mbedtls.git
 ```
 - 切换分支
-```
+```sh
 cd mbedtls
 git checkout tags/mbedtls-3.0.0 -b mbedtls-3.0.0
 git branch
 ```
 - 使用CMake构建库文件
-```
+```sh
 cd ..
 mkdir mbedtlsBuild
 cmake -S mbedtls -B mbedtlsBuild -D USE_SHARED_MBEDTLS_LIBRARY=On -G Ninja
 cmake --build mbedtlsBuild/
 ```
 - 使用CMake构建APIdoc(注意生成后在mbedtls源码目录"xxx/mbedtls/apidoc/")
-```
+```sh
 cmake --build mbedtlsBuild/ --target apidoc
-```
+```sh
 - 安装mbedtls库文件到指定目录(我安装到了本仓库的"mbedtls/lib/")
-```
+```sh
 cmake --install mbedtlsBuild --prefix=../mbedtlsStu/mbedtlsLib
 ```
 ## 测试mbedtlsLib库
 - 详情参见 [chapter00章节代码](./chapter00/)
-```
+```sh
 cd chapter00
 cmake -B build
 cmake --build build
@@ -47,7 +48,7 @@ cmake --build build
 >  MD5('Hello, mbedtls!') = a7bc1487286213a47830f767913f2a93
 
 - 仓库当前的目录拓扑
-```
+```sh
 .
 ├── chapter00
 │   ├── CMakeLists.txt
