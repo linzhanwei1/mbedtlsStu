@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "build_info.h": "c"
+        "build_info.h": "c",
+        "stdlib.h": "c",
+        "io.h": "c",
+        "stdio.h": "c",
+        "cstdlib": "c",
+        "platform.h": "c"
     }
 }
