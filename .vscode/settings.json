@@ -5,6 +5,7 @@
         "io.h": "c",
         "stdio.h": "c",
         "cstdlib": "c",
-        "platform.h": "c"
+        "platform.h": "c",
+        "net_sockets.h": "c"
     }
 }

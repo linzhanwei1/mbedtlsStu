@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
     i = 0;
     while (fscanf(f, "%02X", (unsigned int *)&c) > 0 && i < (int)sizeof(buf))
         buf[i++] = (unsigned char)c;
+    printf("%02x", c);
 
     fclose(f);
 

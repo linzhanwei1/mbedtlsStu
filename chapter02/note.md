@@ -77,3 +77,85 @@ hexdump -C -n 64 seedfile
   . Verifying the RSA/SHA-256 signature
   . OK (the signature is valid)
 ```
+
+- 生成私钥(默认PEM格式)
+```sh
+./build/gen_key
+. Seeding the random number generator...
+  . Generating the private key ... ok
+  . Key information:
+  . Writing key to file... ok
+```
+- 解析私钥
+```sh
+./build/key_app mode=private
+
+ . Loading the private key ... ok
+  . Key information    ...
+```
+- 使用密钥对生成公钥或私钥(pem||der)
+```sh
+./build/key_app_writer mode=private output_mode=private output_file=rsaPrivateKey.pem
+
+  . Loading the private key ... ok
+  . Key information    ...
+```
+```sh
+./build/key_app_writer mode=private output_mode=public output_file=rsaPublicKey.pem
+
+  . Loading the private key ... ok
+  . Key information    ...
+```
+- 使用pk封装的接口加密
+```sh
+./build/pk_encrypt rsaPublicKey.pem abcd
+
+  . Seeding the random number generator...
+  . Reading public key from 'rsaPublicKey.pem'
+  . Generating the encrypted value
+  . Done (created "result-enc.txt")
+```
+- 使用pk封装的接口解密
+```sh
+./build/pk_decrypt rsaPrivateKey.pem 
+
+  . Seeding the random number generator...
+  . Reading private key from 'rsaPrivateKey.pem'
+  . Decrypting the encrypted data
+  . OK
+
+The decrypted result is: 'abcd'
+```
+- 使用pk封装的接口签名
+```sh
+./build/pk_sign rsaPrivateKey.pem rsaPublicKey.pem 
+
+  . Seeding the random number generator...
+  . Reading private key from 'rsaPrivateKey.pem'
+ . Generating the SHA-256 signature
+  . Done (created "rsaPublicKey.pem.sig")
+```
+- 使用pk封装的接口验签
+```sh
+./build/pk_verify rsaPublicKey.pem rsaPublicKey.pem
+
+  . Reading public key from 'rsaPublicKey.pem'
+  . Verifying the SHA-256 signature
+  . OK (the signature is valid)
+```
+- 使用PKCS #1 v2.1填充方案的rsa签名
+```sh
+./build/rsa_sign_pass keyfile.key rsa_pub.txt
+  . Seeding the random number generator...
+  . Reading private key from 'keyfile.key'
+  . Generating the RSA/SHA-256 signature
+  . Done (created "rsa_pub.txt.sig")
+```
+- 使用PKCS #1 v2.1填充方案验签
+```sh
+./build/rsa_verify_pass rsaPublicKey.pem rsa_pub.txt
+
+  . Reading public key from 'rsaPublicKey.pem'
+  . Verifying the RSA/SHA-256 signature
+  . OK (the signature is valid)
+```

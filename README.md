@@ -137,3 +137,8 @@ cmake --build build
 │       └── libmbedx509.so.4 -> libmbedx509.so.3.0.0
 └── README.md
 ```
+
+## help
+```sh
+https://mbed-tls.readthedocs.io/en/latest/kb/development/sample_applications/
+```
