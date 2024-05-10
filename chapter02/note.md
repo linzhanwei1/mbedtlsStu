@@ -23,7 +23,7 @@ hexdump -C -n 64 out.txt
 00000020  de c2 10 f5 65 a0 d5 35  6e b5 2d e9 7f 08 f3 49  |....e..5n.-....I|
 00000030  5d c2 a9 05 0c 53 5d 66  12 f1 81 87 da 41 d0 e6  |]....S]f.....A..|
 ```
-04 ctrDrbg
+## 04 ctrDrbg
 ```sh
 gen_random_ctr_drbg out.txt
 hexdump -C -n 64 out.txt
@@ -37,7 +37,7 @@ hexdump -C -n 64 seedfile
 00000020  48 a2 d6 b9 7f 70 c0 d6  08 eb 4e 3e f1 bf 97 09  |H....p....N>....|
 00000030  ab 4d 96 1b a2 e2 6c ee  10 8f 4d 33 07 de 6b da  |.M....l...M3..k.|
 ```
-05 pkey
+## 05 pkey
 - 生成rsa公私钥
 ```sh
 05pkey$ ./build/rsa_genkey
@@ -158,4 +158,42 @@ The decrypted result is: 'abcd'
   . Reading public key from 'rsaPublicKey.pem'
   . Verifying the RSA/SHA-256 signature
   . OK (the signature is valid)
+```
+- 生成dh公共资源
+```sh
+./build/dh_prime
+```
+- 启动dh服务器
+```sh
+./build/dh_server
+```
+- 启动dh客户端
+```sh
+./build/dh_client
+```
+- 生成自签CA证书(模拟CA机构的原始操作)
+```sh
+cmake -S ../05pkey/ -B build2
+cmake --build build2
+./build2/gen_key type=ec ec_curve=secp256r1 filename=ca_privkey.pem format=pem
+./build/cert_write selfsign=1 is_ca=1 issuer_name=CN=CA,O=security,C=china issuer_key=ca_privkey.pem output_file=ca_root.pem
+```
+## 06x509
+- 生成Ca_root自签证书(模拟CA操作)
+```sh
+./build2/gen_key type=ec ec_curve=secp256r1 filename=ca_privkey.pem format=pem
+./build/cert_write selfsign=1 is_ca=1 issuer_name=CN=CA,O=security,C=china issuer_key=ca_privkey.pem output_file=ca_root.pem
+```
+- 解析根证书
+```sh
+./build/cert_app mode=file filename=ca_root.pem
+```
+- 生成签名请求(模拟CA操作流程)
+```sh
+./build2/gen_key type=ec ec_curve=secp256r1 filename=bob_privkey.pem format=pem
+./build/cert_req filename=bob_privkey.pem subject_name=CN=Bob,O=security,C=china output_file=bob_cert.req
+```
+- 解析签名请求
+```sh
+./build/req_app filename=bob_cert.req
 ```

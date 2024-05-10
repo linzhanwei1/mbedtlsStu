@@ -59,3 +59,6 @@ add_app(dh_server)
 
 # Diffie-Hellman-Merkle key exchange (client side)
 add_app(dh_client)
+
+# Example ECDSA program
+add_app(ecdsa)
