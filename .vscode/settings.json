@@ -7,6 +7,8 @@
         "cstdlib": "c",
         "platform.h": "c",
         "net_sockets.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "in.h": "c",
+        "debug.h": "c"
     }
 }
